@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    input[type="file"], select, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box; 
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Upload and Transform Your Image</h1>
+    <form id="upload-form" action="result.html" method="GET">
+      <input type="file" id="image-upload" accept="image/*" required>
+      <select id="transformation-option" name="transformation">
+        <option value="grayscale">Grayscale</option>
+        <option value="blur">Blur</option>
+      </select>
+      <button type="submit" id="convert-button">Upload and Convert</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("upload-form");
+    const fileInput = document.getElementById("image-upload");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault(); 
+
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          localStorage.setItem("uploadedImage", e.target.result);
+          form.submit(); 
+        };
+        reader.readAsDataURL(file); 
+      }
+    });
+  </script>
+</body>
+</html>
+
